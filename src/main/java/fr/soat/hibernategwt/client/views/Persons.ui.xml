@@ -1,0 +1,27 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		.important {
+			font-weight: bold;
+		}
+	</ui:style>
+	<g:HTMLPanel width="300">
+
+		<g:Grid ui:field="personList" borderWidth="4" cellPadding="15" cellSpacing="5" width="220px">
+			<g:row>
+				<g:customCell>
+					<g:Label text="Id"/> 
+				</g:customCell>
+				<g:customCell>
+					<g:Label text="Nom"/>
+				</g:customCell>
+				<g:customCell>
+					<g:Label text="Age"/>
+				</g:customCell>
+			</g:row>
+		</g:Grid>
+
+		
+	</g:HTMLPanel>
+</ui:UiBinder> 
