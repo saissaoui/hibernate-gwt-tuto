@@ -29,26 +29,14 @@ public class GwtHibernate implements EntryPoint {
 	 * service.
 	 */
 
-	private final PersonServiceAsync personService = GWT
-			.create(PersonService.class);
 
 	/**
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
 
-		personService.getAll(new AsyncCallback<List<Person>>() {
-
-			public void onSuccess(List<Person> result) {
-				Persons personsView = new Persons(result);
-				RootPanel.get().add(personsView);
-			}
-
-			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-
-			}
-		});
+		Persons personsView = new Persons();
+		RootPanel.get().add(personsView);
 
 	}
 }
