@@ -6,14 +6,17 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
+
 @Entity
 @Table(name = "gps", catalog = "mydb")
-public class Gps {
+public class Gps implements IsSerializable {
 	
 	private int idGps;
 	private String nom;
@@ -41,7 +44,8 @@ public class Gps {
 	}
 
 
-	@OneToMany
+	@OneToMany( fetch = FetchType.LAZY, mappedBy = "gps" )
+	
 	public List<Consultant> getConsultantsList() {
 		return consultantsList;
 	}

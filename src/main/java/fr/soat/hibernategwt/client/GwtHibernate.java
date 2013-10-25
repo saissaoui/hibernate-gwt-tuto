@@ -1,16 +1,9 @@
 package fr.soat.hibernategwt.client;
 
-import java.util.List;
-
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.RootPanel;
 
-import fr.soat.hibernategwt.client.services.PersonService;
-import fr.soat.hibernategwt.client.services.PersonServiceAsync;
-import fr.soat.hibernategwt.client.views.Persons;
-import fr.soat.hibernategwt.shared.model.Person;
+import fr.soat.hibernategwt.client.views.AddToGpsView;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -29,14 +22,13 @@ public class GwtHibernate implements EntryPoint {
 	 * service.
 	 */
 
-
 	/**
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
 
-		Persons personsView = new Persons();
-		RootPanel.get().add(personsView);
+		AddToGpsView view = new AddToGpsView();
+		RootPanel.get().add(view);
 
 	}
 }

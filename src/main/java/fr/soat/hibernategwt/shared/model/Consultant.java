@@ -4,14 +4,18 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
+
 @Entity
 @Table(name = "consultant", catalog = "mydb")
-public class Consultant {
+public class Consultant implements IsSerializable {
 
 	private int idConsultant;
 	private String nom;
@@ -37,7 +41,8 @@ public class Consultant {
 		this.nom = nom;
 	}
 
-	@ManyToOne
+	@ManyToOne( fetch = FetchType.LAZY)
+	@JoinColumn(name = "idGps", nullable =false)
 	public Gps getGps() {
 		return gps;
 	}

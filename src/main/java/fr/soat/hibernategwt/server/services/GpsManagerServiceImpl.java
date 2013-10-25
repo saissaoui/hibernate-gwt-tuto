@@ -12,37 +12,49 @@ import fr.soat.hibernategwt.server.util.HibernateUtil;
 import fr.soat.hibernategwt.shared.model.Consultant;
 import fr.soat.hibernategwt.shared.model.Gps;
 
-public class GpsManagerServiceImpl extends RemoteServiceServlet implements GpsManagerService {
+public class GpsManagerServiceImpl extends RemoteServiceServlet implements
+		GpsManagerService {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Session session;
+
+	public GpsManagerServiceImpl() {
+		session = HibernateUtil.getSessionFactory().getCurrentSession();
+	}
 
 	public void addConsultantToGps(Consultant consultant, Gps gps) {
-		 Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		    session.beginTransaction();
-		    consultant = (Consultant) session.load(Consultant.class, consultant.getIdConsultant());
-		    gps = (Gps) session.load(Gps.class, gps.getIdGps());
-		    gps.getConsultantsList().add(consultant);
-		    session.save(consultant);
-		    session.save(gps);
-		    session.getTransaction().commit();
-		
+
+		session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+		gps = (Gps) session.load(Gps.class, gps.getIdGps());
+		gps.getConsultantsList().add(consultant);
+		session.save(consultant);
+		session.save(gps);
+		session.getTransaction().commit();
+
 	}
 
 	public List<Gps> getAllGps() {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+
+		session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
-		List<Gps> gpsList = new ArrayList<Gps>(session.createQuery(
-				"from gps").list());
+		List<Gps> gpsList = new ArrayList<Gps>(session.createQuery("from Gps")
+				.list());
+
 		return gpsList;
 	}
-	
+
 	public List<Consultant> getAllConsultants() {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+
+		session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
-		List<Consultant> consultantsList = new ArrayList<Consultant>(session.createQuery(
-				"from consultant").list());
+		List<Consultant> consultantsList = new ArrayList<Consultant>(session
+				.createQuery("from Consultant").list());
+
 		return consultantsList;
 	}
-
-	
-	
 
 }

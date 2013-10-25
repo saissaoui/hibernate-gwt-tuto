@@ -8,7 +8,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import fr.soat.hibernategwt.shared.model.Consultant;
 import fr.soat.hibernategwt.shared.model.Gps;
 
-@RemoteServiceRelativePath("personService")
+@RemoteServiceRelativePath("gpsService")
  
 
 public interface GpsManagerService  extends RemoteService {
