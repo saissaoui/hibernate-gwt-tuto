@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.context.internal.ThreadLocalSessionContext;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -22,13 +23,15 @@ public class GpsManagerServiceImpl extends RemoteServiceServlet implements
 	private Session session;
 
 	public GpsManagerServiceImpl() {
-		session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session = HibernateUtil.getSessionFactory().openSession();
+		ThreadLocalSessionContext.bind(session);
 	}
 
 	public void addConsultantToGps(Consultant consultant, Gps gps) {
 
-		session = HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
+		
+	
+		session.getTransaction().begin();
 		gps = (Gps) session.load(Gps.class, gps.getIdGps());
 		gps.getConsultantsList().add(consultant);
 		session.save(consultant);
@@ -39,21 +42,21 @@ public class GpsManagerServiceImpl extends RemoteServiceServlet implements
 
 	public List<Gps> getAllGps() {
 
-		session = HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
+		
+		session.getTransaction().begin();
 		List<Gps> gpsList = new ArrayList<Gps>(session.createQuery("from Gps")
 				.list());
-
+		session.getTransaction().commit();
 		return gpsList;
 	}
 
 	public List<Consultant> getAllConsultants() {
 
 		session = HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
+		session.getTransaction().begin();
 		List<Consultant> consultantsList = new ArrayList<Consultant>(session
 				.createQuery("from Consultant").list());
-
+		session.getTransaction().commit();
 		return consultantsList;
 	}
 

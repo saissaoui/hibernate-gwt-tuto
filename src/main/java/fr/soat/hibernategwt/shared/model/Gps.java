@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 @Entity
-@Table(name = "gps", catalog = "mydb")
+@Table(name = "gps", catalog = "mytutodb")
 public class Gps implements IsSerializable {
 	
 	private int idGps;

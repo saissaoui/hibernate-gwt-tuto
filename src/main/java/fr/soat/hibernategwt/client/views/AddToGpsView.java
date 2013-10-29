@@ -49,33 +49,33 @@ public class AddToGpsView extends Composite implements HasText {
 		initWidget(uiBinder.createAndBindUi(this));
 
 		prepareColumns();
-		populateConsultantsList();
-		populateGpsList();
+		populateConsultantsList(false);
+	
 
 	}
 
-	
-
 	@UiHandler("addButton")
 	void onClick(ClickEvent e) {
-		
-		Consultant newConsultant =  new Consultant();
+
+		Consultant newConsultant = new Consultant();
 		newConsultant.setNom(nom.getText());
 		Gps gps = new Gps();
-		
-		gps.setIdGps(Integer.parseInt(gpsListBox.getValue(gpsListBox.getSelectedIndex())));
-		
-		gpsService.addConsultantToGps(newConsultant, gps, new AsyncCallback<Void>() {
-			
-			public void onSuccess(Void result) {
-			refrechConsultantsList();	
-			}
-			
-			public void onFailure(Throwable caught) {
-				Window.alert("Erreur d'ajout du consultant au GPS");
-			}
-		});
-		
+
+		gps.setIdGps(Integer.parseInt(gpsListBox.getValue(gpsListBox
+				.getSelectedIndex())));
+
+		gpsService.addConsultantToGps(newConsultant, gps,
+				new AsyncCallback<Void>() {
+
+					public void onSuccess(Void result) {
+						refrechConsultantsList();
+					}
+
+					public void onFailure(Throwable caught) {
+						Window.alert("Erreur d'ajout du consultant au GPS");
+					}
+				});
+
 	}
 
 	public void setText(String text) {
@@ -117,11 +117,11 @@ public class AddToGpsView extends Composite implements HasText {
 	private void refrechConsultantsList() {
 
 		dataProvider.getList().clear();
-		populateConsultantsList();
+		populateConsultantsList(true);
 
 	}
 
-	private void populateConsultantsList() {
+	private void populateConsultantsList(final boolean isRefresh) {
 
 		gpsService.getAllConsultants(new AsyncCallback<List<Consultant>>() {
 
@@ -130,6 +130,8 @@ public class AddToGpsView extends Composite implements HasText {
 				for (Consultant consultant : result) {
 					cList.add(consultant);
 				}
+				if (!isRefresh)
+					populateGpsList();
 
 			}
 

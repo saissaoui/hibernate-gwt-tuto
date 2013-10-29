@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 @Entity
-@Table(name = "consultant", catalog = "mydb")
+@Table(name = "consultant", catalog = "mytutodb")
 public class Consultant implements IsSerializable {
 
 	private int idConsultant;
