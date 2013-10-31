@@ -1,4 +1,4 @@
-package fr.soat.hibernategwt.shared.model;
+package fr.soat.hibernategwt.server.model;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -13,6 +13,8 @@ import javax.persistence.Table;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
+import fr.soat.hibernategwt.shared.model.ConsultantDTO;
+
 @Entity
 @Table(name = "consultant", catalog = "mytutodb")
 public class Consultant implements IsSerializable {
@@ -20,6 +22,14 @@ public class Consultant implements IsSerializable {
 	private int idConsultant;
 	private String nom;
 	private Gps gps;
+
+	public Consultant(ConsultantDTO cDTO) {
+
+		idConsultant = cDTO.getIdConsultant();
+		nom = cDTO.getNom();
+		gps = cDTO.getGps();
+
+	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -41,8 +51,8 @@ public class Consultant implements IsSerializable {
 		this.nom = nom;
 	}
 
-	@ManyToOne( fetch = FetchType.LAZY)
-	@JoinColumn(name = "idGps", nullable =false)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idGps", nullable = false)
 	public Gps getGps() {
 		return gps;
 	}

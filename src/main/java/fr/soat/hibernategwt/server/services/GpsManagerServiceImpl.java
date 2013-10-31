@@ -9,9 +9,11 @@ import org.hibernate.context.internal.ThreadLocalSessionContext;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import fr.soat.hibernategwt.client.services.GpsManagerService;
+import fr.soat.hibernategwt.server.model.Consultant;
+import fr.soat.hibernategwt.server.model.Gps;
 import fr.soat.hibernategwt.server.util.HibernateUtil;
-import fr.soat.hibernategwt.shared.model.Consultant;
-import fr.soat.hibernategwt.shared.model.Gps;
+import fr.soat.hibernategwt.shared.model.ConsultantDTO;
+import fr.soat.hibernategwt.shared.model.GpsDTO;
 
 public class GpsManagerServiceImpl extends RemoteServiceServlet implements
 		GpsManagerService {
@@ -27,12 +29,13 @@ public class GpsManagerServiceImpl extends RemoteServiceServlet implements
 		ThreadLocalSessionContext.bind(session);
 	}
 
-	public void addConsultantToGps(Consultant consultant, Gps gps) {
+	public void addConsultantToGps(ConsultantDTO consultantDto, GpsDTO gpsDto) {
 
-		
-	
 		session.getTransaction().begin();
-		gps = (Gps) session.load(Gps.class, gps.getIdGps());
+		
+		
+		Gps gps = (Gps) session.load(Gps.class, gpsDto.getIdGps());
+		Consultant consultant = new Consultant(consultantDto);
 		gps.getConsultantsList().add(consultant);
 		session.save(consultant);
 		session.save(gps);
@@ -40,24 +43,34 @@ public class GpsManagerServiceImpl extends RemoteServiceServlet implements
 
 	}
 
-	public List<Gps> getAllGps() {
+	public List<GpsDTO> getAllGps() {
 
-		
 		session.getTransaction().begin();
 		List<Gps> gpsList = new ArrayList<Gps>(session.createQuery("from Gps")
 				.list());
 		session.getTransaction().commit();
-		return gpsList;
+		List<GpsDTO> gpsDtos = new ArrayList<GpsDTO>();
+
+		for (Gps gps : gpsList)
+			gpsDtos.add(new GpsDTO(gps.getIdGps(), gps.getNom(), gps
+					.getConsultantsList()));
+
+		return gpsDtos;
 	}
 
-	public List<Consultant> getAllConsultants() {
+	public List<ConsultantDTO> getAllConsultants() {
 
 		session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.getTransaction().begin();
 		List<Consultant> consultantsList = new ArrayList<Consultant>(session
 				.createQuery("from Consultant").list());
 		session.getTransaction().commit();
-		return consultantsList;
+		List<ConsultantDTO> consultantDtos = new ArrayList<ConsultantDTO>();
+		for (Consultant consultant : consultantsList)
+			consultantDtos.add(new ConsultantDTO(consultant.getIdConsultant(),
+					consultant.getNom(), consultant.getGps()));
+
+		return consultantDtos;
 	}
 
 }

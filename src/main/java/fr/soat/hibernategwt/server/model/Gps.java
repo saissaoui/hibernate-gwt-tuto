@@ -1,4 +1,4 @@
-package fr.soat.hibernategwt.shared.model;
+package fr.soat.hibernategwt.server.model;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -14,13 +14,24 @@ import javax.persistence.Table;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
+import fr.soat.hibernategwt.shared.model.GpsDTO;
+
 @Entity
 @Table(name = "gps", catalog = "mytutodb")
 public class Gps implements IsSerializable {
-	
+
 	private int idGps;
 	private String nom;
 	private List<Consultant> consultantsList;
+
+	public Gps(GpsDTO gDTO) {
+
+		idGps = gDTO.getIdGps();
+		nom = gDTO.getNom();
+		if (gDTO.getConsultantsList() != null)
+			consultantsList = gDTO.getConsultantsList();
+
+	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -33,8 +44,7 @@ public class Gps implements IsSerializable {
 		this.idGps = idGps;
 	}
 
-
-	@Column(name ="nom")
+	@Column(name = "nom")
 	public String getNom() {
 		return nom;
 	}
@@ -43,9 +53,7 @@ public class Gps implements IsSerializable {
 		this.nom = nom;
 	}
 
-
-	@OneToMany( fetch = FetchType.LAZY, mappedBy = "gps" )
-	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "gps")
 	public List<Consultant> getConsultantsList() {
 		return consultantsList;
 	}

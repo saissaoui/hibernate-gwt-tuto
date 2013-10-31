@@ -18,16 +18,19 @@ import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
+
 import fr.soat.hibernategwt.client.services.GpsManagerService;
 import fr.soat.hibernategwt.client.services.GpsManagerServiceAsync;
-import fr.soat.hibernategwt.shared.model.Consultant;
-import fr.soat.hibernategwt.shared.model.Gps;
+import fr.soat.hibernategwt.server.model.Consultant;
+import fr.soat.hibernategwt.server.model.Gps;
+import fr.soat.hibernategwt.shared.model.ConsultantDTO;
+import fr.soat.hibernategwt.shared.model.GpsDTO;
 
 public class AddToGpsView extends Composite implements HasText {
 	@UiField
-	CellTable<Consultant> consultantsList;
+	CellTable<ConsultantDTO> consultantsList;
 
-	TextColumn<Consultant> idColumn, nameColumn, gpsColumn;
+	TextColumn<ConsultantDTO> idColumn, nameColumn, gpsColumn;
 	@UiField
 	TextBox nom;
 
@@ -38,7 +41,7 @@ public class AddToGpsView extends Composite implements HasText {
 	Button addButton;
 	private final GpsManagerServiceAsync gpsService = GWT
 			.create(GpsManagerService.class);
-	ListDataProvider<Consultant> dataProvider;
+	ListDataProvider<ConsultantDTO> dataProvider;
 	private static AddToGpsViewUiBinder uiBinder = GWT
 			.create(AddToGpsViewUiBinder.class);
 
@@ -57,9 +60,9 @@ public class AddToGpsView extends Composite implements HasText {
 	@UiHandler("addButton")
 	void onClick(ClickEvent e) {
 
-		Consultant newConsultant = new Consultant();
+		ConsultantDTO newConsultant = new ConsultantDTO();
 		newConsultant.setNom(nom.getText());
-		Gps gps = new Gps();
+		GpsDTO gps = new GpsDTO();
 
 		gps.setIdGps(Integer.parseInt(gpsListBox.getValue(gpsListBox
 				.getSelectedIndex())));
@@ -88,21 +91,21 @@ public class AddToGpsView extends Composite implements HasText {
 
 	private void prepareColumns() {
 
-		nameColumn = new TextColumn<Consultant>() {
+		nameColumn = new TextColumn<ConsultantDTO>() {
 			@Override
-			public String getValue(Consultant consultant) {
+			public String getValue(ConsultantDTO consultant) {
 				return consultant.getNom();
 			}
 		};
-		idColumn = new TextColumn<Consultant>() {
+		idColumn = new TextColumn<ConsultantDTO>() {
 			@Override
-			public String getValue(Consultant consultant) {
+			public String getValue(ConsultantDTO consultant) {
 				return consultant.getIdConsultant() + "";
 			}
 		};
-		gpsColumn = new TextColumn<Consultant>() {
+		gpsColumn = new TextColumn<ConsultantDTO>() {
 			@Override
-			public String getValue(Consultant consultant) {
+			public String getValue(ConsultantDTO consultant) {
 				return consultant.getGps().getNom();
 			}
 		};
@@ -110,7 +113,7 @@ public class AddToGpsView extends Composite implements HasText {
 		consultantsList.addColumn(idColumn, "Id");
 		consultantsList.addColumn(nameColumn, "Nom");
 		consultantsList.addColumn(gpsColumn, "Gps");
-		dataProvider = new ListDataProvider<Consultant>();
+		dataProvider = new ListDataProvider<ConsultantDTO>();
 		dataProvider.addDataDisplay(consultantsList);
 	}
 
@@ -123,12 +126,12 @@ public class AddToGpsView extends Composite implements HasText {
 
 	private void populateConsultantsList(final boolean isRefresh) {
 
-		gpsService.getAllConsultants(new AsyncCallback<List<Consultant>>() {
+		gpsService.getAllConsultants(new AsyncCallback<List<ConsultantDTO>>() {
 
-			public void onSuccess(List<Consultant> result) {
-				List<Consultant> cList = dataProvider.getList();
-				for (Consultant consultant : result) {
-					cList.add(consultant);
+			public void onSuccess(List<ConsultantDTO> result) {
+				List<ConsultantDTO> cList = dataProvider.getList();
+				for (ConsultantDTO consultant : result) {
+					cList.add(new ConsultantDTO(consultant.getIdConsultant(),consultant.getNom(),consultant.getGps()));
 				}
 				if (!isRefresh)
 					populateGpsList();
@@ -144,10 +147,10 @@ public class AddToGpsView extends Composite implements HasText {
 	}
 
 	private void populateGpsList() {
-		gpsService.getAllGps(new AsyncCallback<List<Gps>>() {
+		gpsService.getAllGps(new AsyncCallback<List<GpsDTO>>() {
 
-			public void onSuccess(List<Gps> result) {
-				for (Gps gps : result)
+			public void onSuccess(List<GpsDTO> result) {
+				for (GpsDTO gps : result)
 					gpsListBox.addItem(gps.getNom(), gps.getIdGps() + "");
 
 			}
