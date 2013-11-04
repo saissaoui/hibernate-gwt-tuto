@@ -7,9 +7,9 @@
 		<property name="current_session_context_class">thread</property>
 		<property name="hibernate.bytecode.use_reflection_optimizer">false</property>
 		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="hibernate.connection.password">root</property>
-		<property name="hibernate.connection.url">jdbc:mysql://ec2-50-19-213-178.compute-1.amazonaws.com:3306/mytutodb</property>
-		<property name="hibernate.connection.username">soatroot</property>
+		<property name="hibernate.connection.password">Password</property>
+		<property name="hibernate.connection.url">Your Db URL</property>
+		<property name="hibernate.connection.username">UserName</property>
 		<property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
 		<property name="show_sql">true</property>
 		<mapping  class="fr.soat.hibernategwt.server.model.Consultant"  />
