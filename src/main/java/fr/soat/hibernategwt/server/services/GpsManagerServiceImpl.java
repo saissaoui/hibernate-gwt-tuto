@@ -37,6 +37,7 @@ public class GpsManagerServiceImpl extends RemoteServiceServlet implements
 		Gps gps = (Gps) session.load(Gps.class, gpsDto.getIdGps());
 		Consultant consultant = new Consultant(consultantDto);
 		gps.getConsultantsList().add(consultant);
+		consultant.setGps(gps);
 		session.save(consultant);
 		session.save(gps);
 		session.getTransaction().commit();
@@ -52,8 +53,7 @@ public class GpsManagerServiceImpl extends RemoteServiceServlet implements
 		List<GpsDTO> gpsDtos = new ArrayList<GpsDTO>();
 
 		for (Gps gps : gpsList)
-			gpsDtos.add(new GpsDTO(gps.getIdGps(), gps.getNom(), gps
-					.getConsultantsList()));
+			gpsDtos.add(new GpsDTO(gps.getIdGps(), gps.getNom()));
 
 		return gpsDtos;
 	}
@@ -68,7 +68,7 @@ public class GpsManagerServiceImpl extends RemoteServiceServlet implements
 		List<ConsultantDTO> consultantDtos = new ArrayList<ConsultantDTO>();
 		for (Consultant consultant : consultantsList)
 			consultantDtos.add(new ConsultantDTO(consultant.getIdConsultant(),
-					consultant.getNom(), consultant.getGps()));
+					consultant.getNom(), new GpsDTO(consultant.getGps().getIdGps(),consultant.getGps().getNom())));
 
 		return consultantDtos;
 	}

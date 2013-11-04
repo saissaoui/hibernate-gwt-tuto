@@ -12,9 +12,9 @@ public class ConsultantDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int idConsultant;
 	private String nom;
-	private Gps gps;
+	private GpsDTO gps;
 
-	public ConsultantDTO(int idConsultant, String nom, Gps gps) {
+	public ConsultantDTO(int idConsultant, String nom, GpsDTO gps) {
 		super();
 		this.idConsultant = idConsultant;
 		this.nom = nom;
@@ -41,11 +41,11 @@ public class ConsultantDTO implements Serializable {
 		this.nom = nom;
 	}
 
-	public Gps getGps() {
+	public GpsDTO getGps() {
 		return gps;
 	}
 
-	public void setGps(Gps gps) {
+	public void setGps(GpsDTO gps) {
 		this.gps = gps;
 	}
 

@@ -24,12 +24,14 @@ public class Gps implements IsSerializable {
 	private String nom;
 	private List<Consultant> consultantsList;
 
+	public Gps() {
+
+	}
+
 	public Gps(GpsDTO gDTO) {
 
 		idGps = gDTO.getIdGps();
 		nom = gDTO.getNom();
-		if (gDTO.getConsultantsList() != null)
-			consultantsList = gDTO.getConsultantsList();
 
 	}
 
