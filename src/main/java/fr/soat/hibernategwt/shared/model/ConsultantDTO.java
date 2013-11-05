@@ -2,8 +2,6 @@ package fr.soat.hibernategwt.shared.model;
 
 import java.io.Serializable;
 
-import fr.soat.hibernategwt.server.model.Gps;
-
 public class ConsultantDTO implements Serializable {
 
 	/**

@@ -22,21 +22,17 @@ public class Consultant implements IsSerializable {
 	private int idConsultant;
 	private String nom;
 	private Gps gps;
-	
-	
-	
-	
 
 	public Consultant() {
-		
+
 	}
 
 	public Consultant(ConsultantDTO cDTO) {
 
 		idConsultant = cDTO.getIdConsultant();
 		nom = cDTO.getNom();
-		if(cDTO.getGps()!=null)
-		gps = new Gps(cDTO.getGps());
+		if (cDTO.getGps() != null)
+			gps = new Gps(cDTO.getGps());
 
 	}
 

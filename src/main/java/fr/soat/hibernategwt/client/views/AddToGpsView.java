@@ -18,14 +18,15 @@ import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
-
 import fr.soat.hibernategwt.client.services.GpsManagerService;
 import fr.soat.hibernategwt.client.services.GpsManagerServiceAsync;
-import fr.soat.hibernategwt.server.model.Consultant;
-import fr.soat.hibernategwt.server.model.Gps;
 import fr.soat.hibernategwt.shared.model.ConsultantDTO;
 import fr.soat.hibernategwt.shared.model.GpsDTO;
 
+/*
+ * La classe definnissant les composants et evenements de la page principale de l'exemple, contenant la liste des 
+ * consultants ainsi que le formulaire d'ajout
+ */
 public class AddToGpsView extends Composite implements HasText {
 	@UiField
 	CellTable<ConsultantDTO> consultantsList;
@@ -53,7 +54,6 @@ public class AddToGpsView extends Composite implements HasText {
 
 		prepareColumns();
 		populateConsultantsList(false);
-	
 
 	}
 
@@ -131,7 +131,8 @@ public class AddToGpsView extends Composite implements HasText {
 			public void onSuccess(List<ConsultantDTO> result) {
 				List<ConsultantDTO> cList = dataProvider.getList();
 				for (ConsultantDTO consultant : result) {
-					cList.add(new ConsultantDTO(consultant.getIdConsultant(),consultant.getNom(),consultant.getGps()));
+					cList.add(new ConsultantDTO(consultant.getIdConsultant(),
+							consultant.getNom(), consultant.getGps()));
 				}
 				if (!isRefresh)
 					populateGpsList();
