@@ -4,9 +4,7 @@ import java.io.Serializable;
 
 public class GpsDTO implements Serializable {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private int idGps;
 	private String nom;
