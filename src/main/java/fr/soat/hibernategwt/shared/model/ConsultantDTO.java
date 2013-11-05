@@ -4,9 +4,7 @@ import java.io.Serializable;
 
 public class ConsultantDTO implements Serializable {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private int idConsultant;
 	private String nom;
@@ -20,7 +18,7 @@ public class ConsultantDTO implements Serializable {
 	}
 
 	public ConsultantDTO() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public int getIdConsultant() {
