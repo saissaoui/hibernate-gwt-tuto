@@ -18,9 +18,6 @@ import fr.soat.hibernategwt.shared.model.GpsDTO;
 public class GpsManagerServiceImpl extends RemoteServiceServlet implements
 		GpsManagerService {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private Session session;
 
